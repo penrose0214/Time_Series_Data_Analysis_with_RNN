@@ -11,9 +11,10 @@ df = df.drop("total", axis=1)
 df = df.drop_duplicates()
 
 origin, today = "2019-01-01", "2019-05-31"
+# asfreq("D")는 날짜 인덱스를 일(day) 단위 빈도로 맞춰 시계열의 간격을 명시한다.
 rail_series = df.loc[origin:today]["rail"].asfreq("D")
 model = ARIMA(rail_series,
               order=(1, 0, 0),
               seasonal_order=(0, 1, 1, 7))
 model = model.fit()
-y_pred = model.forcast()
+y_pred = model.forecast()
